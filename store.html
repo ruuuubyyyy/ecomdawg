@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple E-Commerce Store</title>
+
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+// Enable Debug Mode
+gtag('config', 'G-XXXXXXXXXX', {
+  debug_mode: true
+});
+</script>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f5f5f5;
+}
+
+header{
+    background:#222;
+    color:white;
+    padding:15px;
+    text-align:center;
+}
+
+.cart{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-weight:bold;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    padding:40px;
+}
+
+.product{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    width:220px;
+    text-align:center;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.price{
+    font-size:18px;
+    color:#27ae60;
+    margin:10px 0;
+}
+
+button{
+    border:none;
+    padding:10px 15px;
+    margin:5px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.add{
+    background:#3498db;
+    color:white;
+}
+
+.buy{
+    background:#e74c3c;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>Simple E-commerce Store</h2>
+<div class="cart">Cart: <span id="cart-count">0</span></div>
+</header>
+
+<div class="container">
+
+<div class="product">
+<h3>T-Shirt</h3>
+<p class="price">₹499</p>
+<button class="add" onclick="addToCart('T-Shirt',499)">Add to Cart</button>
+<button class="buy" onclick="buyNow('T-Shirt',499)">Buy Now</button>
+</div>
+
+<div class="product">
+<h3>Shoes</h3>
+<p class="price">₹1499</p>
+<button class="add" onclick="addToCart('Shoes',1499)">Add to Cart</button>
+<button class="buy" onclick="buyNow('Shoes',1499)">Buy Now</button>
+</div>
+
+<div class="product">
+<h3>Cap</h3>
+<p class="price">₹299</p>
+<button class="add" onclick="addToCart('Cap',299)">Add to Cart</button>
+<button class="buy" onclick="buyNow('Cap',299)">Buy Now</button>
+</div>
+
+</div>
+
+<script>
+let cart = 0;
+
+function addToCart(product,price){
+
+    cart++;
+    document.getElementById("cart-count").innerText = cart;
+
+    // Send event to Google Analytics
+    gtag('event','add_to_cart',{
+        currency:'INR',
+        value:price,
+        item_name:product
+    });
+
+}
+
+function buyNow(product,price){
+
+    // Send event to Google Analytics
+    gtag('event','purchase_click',{
+        currency:'INR',
+        value:price,
+        item_name:product
+    });
+
+    alert("Proceeding to buy: " + product);
+}
+</script>
+
+</body>
+</html>
